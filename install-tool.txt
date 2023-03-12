@@ -1,0 +1,2 @@
+apt-get install eog					# İmage görüntüleyici
+apt-get install foremost			# Dosya parçalayıcı.
