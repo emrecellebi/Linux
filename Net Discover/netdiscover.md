@@ -6,7 +6,6 @@ Aktif/Pasif ARP keşif aracı Version: 0.9
 | -r | Otomatik tarama yerine belirli bir aralığı tarayın |
 
 # Komut Kullanımı
-"-r" komutunun kullanımı.
 ```sh
 netdiscover -r 192.168.1.0/24
 ```
